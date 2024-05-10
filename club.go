@@ -59,7 +59,7 @@ func ParseClub(in io.Reader) (*Club, error) {
 	line := s.Text()
 	deskCount, err := ParsePositive(line)
 	if err != nil {
-		return nil, fmt.Errorf("line %d: %w", lineCount, err)
+		return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, err)
 	}
 	lineCount++
 
@@ -67,7 +67,7 @@ func ParseClub(in io.Reader) (*Club, error) {
 	line = s.Text()
 	start, stop, err := ParseStartStop(line)
 	if err != nil {
-		return nil, fmt.Errorf("line %d: %w", lineCount, err)
+		return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, err)
 	}
 	lineCount++
 
@@ -75,7 +75,7 @@ func ParseClub(in io.Reader) (*Club, error) {
 	line = s.Text()
 	rate, err := ParsePositive(line)
 	if err != nil {
-		return nil, fmt.Errorf("line %d: %w", lineCount, err)
+		return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, err)
 	}
 	lineCount++
 
@@ -93,14 +93,14 @@ func ParseClub(in io.Reader) (*Club, error) {
 
 		e, err := ParseEvent(line)
 		if err != nil {
-			return nil, fmt.Errorf("line %d: %w", lineCount, err)
+			return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, err)
 		}
 		if prevTime.Compare(e.Time()) == 1 {
-			return nil, fmt.Errorf("line %d: %w", lineCount, ErrEventOrder)
+			return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, ErrEventOrder)
 		}
 		if cde, ok := e.(ClientDeskEvent); ok {
 			if cde.DeskNumber > deskCount {
-				return nil, fmt.Errorf("line %d: %w", lineCount, ErrEventDesk)
+				return nil, errors.New(line) // fmt.Errorf("line %d: %w", lineCount, ErrEventDesk)
 			}
 		}
 

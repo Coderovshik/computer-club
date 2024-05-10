@@ -55,7 +55,7 @@ func main() {
 
 	c, err := ParseClub(f)
 	if err != nil {
-		fmt.Printf("%s %s", f.Name(), err)
+		fmt.Print(err)
 		os.Exit(1)
 	}
 
