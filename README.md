@@ -13,7 +13,7 @@ git clone https://github.com/Coderovshik/computer-club.git
 docker build -t compclub .
 ```
 
-Запустите контейнер подставив абсолютный путь к текстовому файлу в флаг тома (для запуска на windows используйте Powershell):
+Запустите контейнер подставив абсолютный путь к текстовому файлу в флаг тома:
 ```
 docker run -it --rm -v path/to/your/test.txt:/test.txt compclub test.txt
 ```
